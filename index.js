@@ -29,8 +29,6 @@ const config = {
           label: 'L',
           drawRegion: { x: 361, y: 74, w: 64, h: 128 },
           skinMap: { x: 28, y: 20, w: 4, h: 12 },
-          needsNewFormat: true,
-          mirrorFrom: 'right',
         },
         back: {
           label: 'BACK',
@@ -78,42 +76,36 @@ const config = {
           label: 'LL',
           drawRegion: { x: 308, y: 355, w: 64, h: 128 },
           skinMap: { x: 32, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_arm_l',
         },
         left_arm_b: {
           label: 'LB',
           drawRegion: { x: 374, y: 355, w: 64, h: 128 },
           skinMap: { x: 36, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_arm_b',
         },
         left_arm_r: {
           label: 'LR',
           drawRegion: { x: 440, y: 355, w: 64, h: 128 },
           skinMap: { x: 40, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_arm_r',
         },
         left_arm_f: {
           label: 'LF',
           drawRegion: { x: 506, y: 355, w: 64, h: 128 },
           skinMap: { x: 44, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_arm_f',
         },
         left_arm_u: {
           label: 'LU',
           drawRegion: { x: 308, y: 289, w: 64, h: 64 },
           skinMap: { x: 36, y: 48, w: 4, h: 4 },
-          needsNewFormat: true,
           mirrorFrom: 'right_arm_u',
         },
         left_arm_d: {
           label: 'LD',
           drawRegion: { x: 308, y: 485, w: 64, h: 64 },
           skinMap: { x: 40, y: 48, w: 4, h: 4 },
-          needsNewFormat: true,
           mirrorFrom: 'right_arm_d',
         },
       },
@@ -156,42 +148,36 @@ const config = {
           label: 'LL',
           drawRegion: { x: 308, y: 355, w: 64, h: 128 },
           skinMap: { x: 16, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_leg_l',
         },
         left_leg_b: {
           label: 'LB',
           drawRegion: { x: 374, y: 355, w: 64, h: 128 },
           skinMap: { x: 20, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_leg_b',
         },
         left_leg_r: {
           label: 'LR',
           drawRegion: { x: 440, y: 355, w: 64, h: 128 },
           skinMap: { x: 24, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_leg_r',
         },
         left_leg_f: {
           label: 'LF',
           drawRegion: { x: 506, y: 355, w: 64, h: 128 },
           skinMap: { x: 28, y: 52, w: 4, h: 12 },
-          needsNewFormat: true,
           mirrorFrom: 'right_leg_f',
         },
         left_leg_u: {
           label: 'LU',
           drawRegion: { x: 308, y: 289, w: 64, h: 64 },
           skinMap: { x: 20, y: 48, w: 4, h: 4 },
-          needsNewFormat: true,
           mirrorFrom: 'right_leg_u',
         },
         left_leg_d: {
           label: 'LD',
           drawRegion: { x: 308, y: 485, w: 64, h: 64 },
           skinMap: { x: 24, y: 48, w: 4, h: 4 },
-          needsNewFormat: true,
           mirrorFrom: 'right_leg_d',
         },
       },
@@ -350,9 +336,9 @@ function processMinecraftSkin(skinImg) {
 
 // Draw a region from skin
 function drawSkinRegion(ctx, skinImg, region, hasNewFormat, allRegions) {
-  const { drawRegion, skinMap, needsNewFormat, mirrorFrom } = region;
+  const { drawRegion, skinMap, mirrorFrom } = region;
 
-  if (needsNewFormat && !hasNewFormat && mirrorFrom) {
+  if (!hasNewFormat && mirrorFrom) {
     const mirrorRegion = allRegions[mirrorFrom];
     const mirrorSkinMap = mirrorRegion.skinMap;
 
@@ -397,10 +383,7 @@ function createGarmentTemplate(skinImg, garmentType, hasNewFormat, ctx) {
 
   // Process all regions
   Object.entries(regions).forEach(([regionName, region]) => {
-    // Skip parts that need new format if we're using old format and there's no mirror source
-    if (region.needsNewFormat && !hasNewFormat && !region.mirrorFrom) {
-      return;
-    }
+    if (!hasNewFormat && !region.mirrorFrom) return;
 
     drawSkinRegion(ctx, skinImg, region, hasNewFormat, regions);
   });
