@@ -189,7 +189,6 @@ const config = {
   },
 };
 
-// DOM elements
 const elements = {
   fileInput: document.getElementById('fileInput'),
   uploadBtn: document.getElementById('uploadBtn'),
@@ -204,7 +203,6 @@ const elements = {
   outputContainer: document.getElementById('output-container'),
 };
 
-// Set up canvas objects
 const canvases = {
   shirt: {
     src: '/Template_Shirt.png',
@@ -220,20 +218,16 @@ const canvases = {
   },
 };
 
-// Initialize canvases
 function initCanvases() {
   Object.values(canvases).forEach((canvasObj) => {
-    // Set canvas dimensions
     canvasObj.canvas.width = config.templates.width;
     canvasObj.canvas.height = config.templates.height;
 
-    // Get context and disable smoothing for pixelated rendering
     canvasObj.ctx = canvasObj.canvas.getContext('2d');
     canvasObj.ctx.imageSmoothingEnabled = false;
   });
 }
 
-// Load template images
 function loadTemplates() {
   Object.values(canvases).forEach((canvasObj) => {
     canvasObj.template.src = canvasObj.src;
@@ -243,19 +237,15 @@ function loadTemplates() {
   });
 }
 
-// Draw template with labels
 function drawTemplate(canvasObj) {
   const ctx = canvasObj.ctx;
   const garmentType = canvasObj === canvases.shirt ? 'shirt' : 'pants';
   const garmentConfig = config.garments[garmentType];
 
-  // Draw template image
   ctx.drawImage(canvasObj.template, 0, 0);
 
-  // Add labels
   addLabels(ctx, garmentConfig);
 
-  // Draw dotted divider line
   ctx.strokeStyle = '#ffffff';
   ctx.setLineDash([5, 5]);
   ctx.beginPath();
@@ -264,7 +254,6 @@ function drawTemplate(canvasObj) {
   ctx.stroke();
 }
 
-// Add labels to template
 function addLabels(ctx, garmentConfig) {
   ctx.font = 'bold 32px sans-serif';
   ctx.fillStyle = 'white';
@@ -282,7 +271,6 @@ function addLabels(ctx, garmentConfig) {
   });
 }
 
-// Check if using new skin format
 function checkForNewSkinFormat(skinImg) {
   const tempCanvas = document.createElement('canvas');
   tempCanvas.width = config.minecraft.width;
@@ -290,7 +278,6 @@ function checkForNewSkinFormat(skinImg) {
   const tempCtx = tempCanvas.getContext('2d');
   tempCtx.drawImage(skinImg, 0, 0);
 
-  // Check for non-transparent pixels in left arm/leg area
   const imageData = tempCtx.getImageData(16, 48, 16, 16);
   const data = imageData.data;
 
@@ -303,7 +290,6 @@ function checkForNewSkinFormat(skinImg) {
   return false; // Old format skin
 }
 
-// Create mirrored image for old skin format
 function createMirroredImage(skinImg, srcX, srcY, srcW, srcH) {
   const tempCanvas = document.createElement('canvas');
   tempCanvas.width = srcW;
@@ -317,24 +303,18 @@ function createMirroredImage(skinImg, srcX, srcY, srcW, srcH) {
   return tempCanvas;
 }
 
-// Process Minecraft skin and create Roblox templates
 function processMinecraftSkin(skinImg) {
   const hasNewFormat = checkForNewSkinFormat(skinImg);
 
-  // Process garments
   Object.entries(canvases).forEach(([garmentType, canvasObj]) => {
-    // Reset template
     drawTemplate(canvasObj);
 
-    // Create the garment template
     createGarmentTemplate(skinImg, garmentType, hasNewFormat, canvasObj.ctx);
 
-    // Add labels back
     addLabels(canvasObj.ctx, config.garments[garmentType]);
   });
 }
 
-// Draw a region from skin
 function drawSkinRegion(ctx, skinImg, region, hasNewFormat, allRegions) {
   const { drawRegion, skinMap, mirrorFrom } = region;
 
@@ -376,12 +356,10 @@ function drawSkinRegion(ctx, skinImg, region, hasNewFormat, allRegions) {
   }
 }
 
-// Create garment template from skin
 function createGarmentTemplate(skinImg, garmentType, hasNewFormat, ctx) {
   const garmentConfig = config.garments[garmentType];
   const regions = garmentConfig.regions;
 
-  // Process all regions
   Object.entries(regions).forEach(([regionName, region]) => {
     if (!hasNewFormat && !region.mirrorFrom) return;
 
@@ -389,19 +367,15 @@ function createGarmentTemplate(skinImg, garmentType, hasNewFormat, ctx) {
   });
 }
 
-// Event handlers
 function setupEventListeners() {
-  // Upload button click
   elements.uploadBtn.addEventListener('click', function () {
     elements.fileInput.click();
   });
 
-  // File input change
   elements.fileInput.addEventListener('change', function () {
     if (elements.fileInput.files && elements.fileInput.files[0]) {
       const file = elements.fileInput.files[0];
 
-      // Check if file is a PNG
       if (file.type !== 'image/png') {
         showError('Please upload a PNG file');
         return;
@@ -414,18 +388,15 @@ function setupEventListeners() {
       reader.onload = function (e) {
         const img = new Image();
         img.onload = function () {
-          // Verify dimensions
           if (img.width !== config.minecraft.width || img.height !== config.minecraft.height) {
             showError("The file doesn't appear to be a valid Minecraft skin.<br>Expected size: 64x64 pixels");
             hideSpinner();
             return;
           }
 
-          // Display original preview
           elements.originalPreview.src = e.target.result;
           elements.previewSection.style.display = 'block';
 
-          // Process the image
           processMinecraftSkin(img);
 
           hideSpinner();
@@ -444,17 +415,10 @@ function setupEventListeners() {
     }
   });
 
-  // Download buttons
-  elements.downloadShirtBtn.addEventListener('click', function () {
-    downloadCanvas('roblox_shirt.png', canvases.shirt.canvas);
-  });
-
-  elements.downloadPantsBtn.addEventListener('click', function () {
-    downloadCanvas('roblox_pants.png', canvases.pants.canvas);
-  });
+  elements.downloadShirtBtn.addEventListener('click', () => downloadCanvas('roblox_shirt.png', canvases.shirt.canvas));
+  elements.downloadPantsBtn.addEventListener('click', () => downloadCanvas('roblox_pants.png', canvases.pants.canvas));
 }
 
-// Download canvas as image
 function downloadCanvas(filename, canvas) {
   const link = document.createElement('a');
   link.download = filename;
@@ -462,7 +426,6 @@ function downloadCanvas(filename, canvas) {
   link.click();
 }
 
-// UI Utilities
 function showSpinner() {
   elements.spinner.style.display = 'block';
 }
@@ -476,12 +439,10 @@ function showError(message) {
   elements.errorMessage.style.display = 'block';
 }
 
-// Initialize the application
 function init() {
   initCanvases();
   loadTemplates();
   setupEventListeners();
 }
 
-// Start the application
 init();
