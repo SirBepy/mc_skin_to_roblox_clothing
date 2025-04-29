@@ -109,7 +109,6 @@ const config = {
           mirrorFrom: 'right_arm_d',
         },
       },
-      extraLabels: [],
     },
     pants: {
       regions: {
@@ -181,10 +180,6 @@ const config = {
           mirrorFrom: 'right_leg_d',
         },
       },
-      extraLabels: [
-        { x: 113, y: 514, text: 'RIGHT ARM' },
-        { x: 511, y: 514, text: 'LEFT ARM' },
-      ],
     },
   },
 };
@@ -264,10 +259,6 @@ function addLabels(ctx, garmentConfig) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
     ctx.fillText(region.label, centerX, centerY + 10);
-  });
-
-  garmentConfig.extraLabels.forEach((label) => {
-    ctx.fillText(label.text, label.x, label.y);
   });
 }
 
