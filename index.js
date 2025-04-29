@@ -201,14 +201,14 @@ const elements = {
 
 const canvases = {
   shirt: {
-    src: './Template_Shirt.png',
+    src: 'images/Template_Shirt.png',
     canvas: elements.shirtCanvas,
     ctx: null,
     template: new Image(),
     skinOnlyCanvas: document.createElement('canvas'),
   },
   pants: {
-    src: './Template_Pants.png',
+    src: 'images/Template_Pants.png',
     canvas: elements.pantsCanvas,
     ctx: null,
     template: new Image(),
