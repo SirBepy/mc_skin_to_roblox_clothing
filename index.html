@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft to Roblox Skin Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Minecraft to Roblox Skin Converter</h1>
+
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Click "Choose File" to upload your Minecraft skin (.png file)</li>
+                <li>The tool will automatically convert it to Roblox shirt and pants templates</li>
+                <li>Download the templates and upload them to Roblox</li>
+            </ol>
+            <p>Note: This tool preserves the original pixel art style by using nearest neighbor scaling.</p>
+        </div>
+
+        <div class="upload-section">
+            <input type="file" id="fileInput" accept=".png">
+            <button class="btn" id="uploadBtn">Upload Minecraft Skin</button>
+            <div class="spinner" id="spinner"></div>
+            <div class="error" id="error-message"></div>
+        </div>
+
+        <div id="preview-section">
+            <h3>Original Minecraft Skin:</h3>
+            <img id="original-preview">
+        </div>
+
+        <div id="output-container">
+            <h2>Converted Templates:</h2>
+
+            <div class="output-section">
+                <div class="output-item">
+                    <h3>Roblox Shirt Template</h3>
+                    <canvas id="shirtCanvas"></canvas>
+                    <div class="download-row">
+                        <button class="btn" id="downloadShirtBtn">Download Shirt Template</button>
+                    </div>
+                </div>
+
+                <div class="output-item">
+                    <h3>Roblox Pants Template</h3>
+                    <canvas id="pantsCanvas"></canvas>
+                    <div class="download-row">
+                        <button class="btn" id="downloadPantsBtn">Download Pants Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
