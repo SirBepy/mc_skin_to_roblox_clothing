@@ -43,22 +43,22 @@ const config = {
 
         right_arm_l: {
           label: 'RL',
-          drawRegion: { x: 19, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 151, y: 355, w: 64, h: 128 },
           skinMap: { x: 40, y: 20, w: 4, h: 12 },
         },
         right_arm_b: {
           label: 'RB',
-          drawRegion: { x: 85, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 217, y: 355, w: 64, h: 128 },
           skinMap: { x: 44, y: 20, w: 4, h: 12 },
         },
         right_arm_r: {
           label: 'RR',
-          drawRegion: { x: 151, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 19, y: 355, w: 64, h: 128 },
           skinMap: { x: 48, y: 20, w: 4, h: 12 },
         },
         right_arm_f: {
           label: 'RF',
-          drawRegion: { x: 217, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 85, y: 355, w: 64, h: 128 },
           skinMap: { x: 52, y: 20, w: 4, h: 12 },
         },
         right_arm_u: {
@@ -74,25 +74,25 @@ const config = {
 
         left_arm_l: {
           label: 'LL',
-          drawRegion: { x: 308, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 506, y: 355, w: 64, h: 128 },
           skinMap: { x: 32, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_arm_l',
         },
         left_arm_b: {
           label: 'LB',
-          drawRegion: { x: 374, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 308, y: 355, w: 64, h: 128 },
           skinMap: { x: 36, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_arm_b',
         },
         left_arm_r: {
           label: 'LR',
-          drawRegion: { x: 440, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 374, y: 355, w: 64, h: 128 },
           skinMap: { x: 40, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_arm_r',
         },
         left_arm_f: {
           label: 'LF',
-          drawRegion: { x: 506, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 440, y: 355, w: 64, h: 128 },
           skinMap: { x: 44, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_arm_f',
         },
@@ -114,22 +114,22 @@ const config = {
       regions: {
         right_leg_l: {
           label: 'RL',
-          drawRegion: { x: 19, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 151, y: 355, w: 64, h: 128 },
           skinMap: { x: 0, y: 20, w: 4, h: 12 },
         },
         right_leg_b: {
           label: 'RB',
-          drawRegion: { x: 85, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 217, y: 355, w: 64, h: 128 },
           skinMap: { x: 4, y: 20, w: 4, h: 12 },
         },
         right_leg_r: {
           label: 'RR',
-          drawRegion: { x: 151, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 19, y: 355, w: 64, h: 128 },
           skinMap: { x: 8, y: 20, w: 4, h: 12 },
         },
         right_leg_f: {
           label: 'RF',
-          drawRegion: { x: 217, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 85, y: 355, w: 64, h: 128 },
           skinMap: { x: 12, y: 20, w: 4, h: 12 },
         },
         right_leg_u: {
@@ -145,25 +145,25 @@ const config = {
 
         left_leg_l: {
           label: 'LL',
-          drawRegion: { x: 308, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 506, y: 355, w: 64, h: 128 },
           skinMap: { x: 16, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_leg_l',
         },
         left_leg_b: {
           label: 'LB',
-          drawRegion: { x: 374, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 308, y: 355, w: 64, h: 128 },
           skinMap: { x: 20, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_leg_b',
         },
         left_leg_r: {
           label: 'LR',
-          drawRegion: { x: 440, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 374, y: 355, w: 64, h: 128 },
           skinMap: { x: 24, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_leg_r',
         },
         left_leg_f: {
           label: 'LF',
-          drawRegion: { x: 506, y: 355, w: 64, h: 128 },
+          drawRegion: { x: 440, y: 355, w: 64, h: 128 },
           skinMap: { x: 28, y: 52, w: 4, h: 12 },
           mirrorFrom: 'right_leg_f',
         },
