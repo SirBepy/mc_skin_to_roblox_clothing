@@ -30,7 +30,7 @@ const config = {
           drawRegion: { x: 361, y: 74, w: 64, h: 128 },
           skinMap: { x: 36, y: 52, w: 4, h: 12 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'right', skinMap: { x: 44, y: 20, w: 4, h: 12 } },
+          mirrorFrom: 'right',
         },
         back: {
           label: 'BACK',
@@ -57,7 +57,7 @@ const config = {
           drawRegion: { x: 307, y: 258, w: 65, h: 65 },
           skinMap: { x: 20, y: 48, w: 4, h: 4 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'rightUpperLeg', skinMap: { x: 4, y: 16, w: 4, h: 4 } },
+          mirrorFrom: 'rightUpperLeg',
         },
         rightLegLeft: {
           label: 'L',
@@ -84,28 +84,28 @@ const config = {
           drawRegion: { x: 386, y: 372, w: 65, h: 65 },
           skinMap: { x: 20, y: 52, w: 4, h: 12 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'rightLegFront', skinMap: { x: 4, y: 20, w: 4, h: 12 } },
+          mirrorFrom: 'rightLegFront',
         },
         leftLegLeft: {
           label: 'L',
           drawRegion: { x: 477, y: 372, w: 65, h: 65 },
           skinMap: { x: 24, y: 52, w: 4, h: 12 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'rightLegRight', skinMap: { x: 0, y: 20, w: 4, h: 12 } },
+          mirrorFrom: 'rightLegRight',
         },
         leftLegBack: {
           label: 'B',
           drawRegion: { x: 570, y: 372, w: 65, h: 65 },
           skinMap: { x: 28, y: 52, w: 4, h: 12 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'rightLegBack', skinMap: { x: 12, y: 20, w: 4, h: 12 } },
+          mirrorFrom: 'rightLegBack',
         },
         leftLegRight: {
           label: 'R',
           drawRegion: { x: 663, y: 372, w: 65, h: 65 },
           skinMap: { x: 16, y: 52, w: 4, h: 12 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'rightLegLeft', skinMap: { x: 8, y: 20, w: 4, h: 12 } },
+          mirrorFrom: 'rightLegLeft',
         },
         rightLowerLeg: {
           label: 'D',
@@ -117,7 +117,7 @@ const config = {
           drawRegion: { x: 307, y: 484, w: 65, h: 65 },
           skinMap: { x: 24, y: 48, w: 4, h: 4 },
           needsNewFormat: true,
-          mirrorFrom: { region: 'rightLowerLeg', skinMap: { x: 8, y: 16, w: 4, h: 4 } },
+          mirrorFrom: 'rightLowerLeg',
         },
       },
       extraLabels: [
@@ -274,24 +274,27 @@ function processMinecraftSkin(skinImg) {
 }
 
 // Draw a region from skin
-function drawSkinRegion(ctx, skinImg, region, hasNewFormat) {
+function drawSkinRegion(ctx, skinImg, region, hasNewFormat, allRegions) {
   const { drawRegion, skinMap, needsNewFormat, mirrorFrom } = region;
 
   if (needsNewFormat && !hasNewFormat && mirrorFrom) {
+    const mirrorRegion = allRegions[mirrorFrom];
+    const mirrorSkinMap = mirrorRegion.skinMap;
+
     const mirroredCanvas = createMirroredImage(
       skinImg,
-      mirrorFrom.skinMap.x,
-      mirrorFrom.skinMap.y,
-      mirrorFrom.skinMap.w,
-      mirrorFrom.skinMap.h
+      mirrorSkinMap.x,
+      mirrorSkinMap.y,
+      mirrorSkinMap.w,
+      mirrorSkinMap.h
     );
 
     ctx.drawImage(
       mirroredCanvas,
       0,
       0,
-      mirrorFrom.skinMap.w,
-      mirrorFrom.skinMap.h,
+      mirrorSkinMap.w,
+      mirrorSkinMap.h,
       drawRegion.x,
       drawRegion.y,
       drawRegion.w,
@@ -318,13 +321,13 @@ function createGarmentTemplate(skinImg, garmentType, hasNewFormat, ctx) {
   const regions = garmentConfig.regions;
 
   // Process all regions
-  Object.values(regions).forEach((region) => {
+  Object.entries(regions).forEach(([regionName, region]) => {
     // Skip parts that need new format if we're using old format and there's no mirror source
     if (region.needsNewFormat && !hasNewFormat && !region.mirrorFrom) {
       return;
     }
 
-    drawSkinRegion(ctx, skinImg, region, hasNewFormat);
+    drawSkinRegion(ctx, skinImg, region, hasNewFormat, regions);
   });
 }
 
@@ -401,6 +404,7 @@ function downloadCanvas(filename, canvas) {
   link.click();
 }
 
+// UI Utilities
 function showSpinner() {
   elements.spinner.style.display = 'block';
 }
@@ -414,10 +418,12 @@ function showError(message) {
   elements.errorMessage.style.display = 'block';
 }
 
+// Initialize the application
 function init() {
   initCanvases();
   loadTemplates();
   setupEventListeners();
 }
 
+// Start the application
 init();
