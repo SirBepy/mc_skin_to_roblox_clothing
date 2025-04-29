@@ -250,6 +250,7 @@ function drawTemplate(canvasObj) {
 }
 
 function addLabels(ctx, garmentConfig) {
+  if (!window.debugMode) return;
   ctx.font = 'bold 32px sans-serif';
   ctx.fillStyle = 'white';
   ctx.textAlign = 'center';
