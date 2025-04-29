@@ -446,11 +446,11 @@ function setupEventListeners() {
 
   // Download buttons
   elements.downloadShirtBtn.addEventListener('click', function () {
-    downloadCanvas('roblox_shirt_template.png', canvases.shirt.canvas);
+    downloadCanvas('roblox_shirt.png', canvases.shirt.canvas);
   });
 
   elements.downloadPantsBtn.addEventListener('click', function () {
-    downloadCanvas('roblox_pants_template.png', canvases.pants.canvas);
+    downloadCanvas('roblox_pants.png', canvases.pants.canvas);
   });
 }
 
