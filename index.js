@@ -196,6 +196,7 @@ const elements = {
   spinner: document.getElementById('spinner'),
   errorMessage: document.getElementById('error-message'),
   outputContainer: document.getElementById('output-container'),
+  showTemplateCheckbox: document.getElementById('show_roblox_template'),
 };
 
 const canvases = {
@@ -204,12 +205,14 @@ const canvases = {
     canvas: elements.shirtCanvas,
     ctx: null,
     template: new Image(),
+    skinOnlyCanvas: document.createElement('canvas'),
   },
   pants: {
     src: '/Template_Pants.png',
     canvas: elements.pantsCanvas,
     ctx: null,
     template: new Image(),
+    skinOnlyCanvas: document.createElement('canvas'),
   },
 };
 
@@ -217,9 +220,13 @@ function initCanvases() {
   Object.values(canvases).forEach((canvasObj) => {
     canvasObj.canvas.width = config.templates.width;
     canvasObj.canvas.height = config.templates.height;
-
     canvasObj.ctx = canvasObj.canvas.getContext('2d');
     canvasObj.ctx.imageSmoothingEnabled = false;
+
+    canvasObj.skinOnlyCanvas.width = config.templates.width;
+    canvasObj.skinOnlyCanvas.height = config.templates.height;
+    canvasObj.skinOnlyCtx = canvasObj.skinOnlyCanvas.getContext('2d');
+    canvasObj.skinOnlyCtx.imageSmoothingEnabled = false;
   });
 }
 
@@ -237,6 +244,7 @@ function drawTemplate(canvasObj) {
   const garmentType = canvasObj === canvases.shirt ? 'shirt' : 'pants';
   const garmentConfig = config.garments[garmentType];
 
+  ctx.clearRect(0, 0, canvasObj.canvas.width, canvasObj.canvas.height);
   ctx.drawImage(canvasObj.template, 0, 0);
 
   addLabels(ctx, garmentConfig);
@@ -247,6 +255,8 @@ function drawTemplate(canvasObj) {
   ctx.moveTo(0, garmentType === 'shirt' ? 172 : 372);
   ctx.lineTo(585, garmentType === 'shirt' ? 172 : 372);
   ctx.stroke();
+
+  canvasObj.skinOnlyCtx.clearRect(0, 0, canvasObj.skinOnlyCanvas.width, canvasObj.skinOnlyCanvas.height);
 }
 
 function addLabels(ctx, garmentConfig) {
@@ -302,6 +312,7 @@ function processMinecraftSkin(skinImg) {
     drawTemplate(canvasObj);
 
     createGarmentTemplate(skinImg, garmentType, hasNewFormat, canvasObj.ctx);
+    createGarmentTemplate(skinImg, garmentType, hasNewFormat, canvasObj.skinOnlyCtx);
 
     addLabels(canvasObj.ctx, config.garments[garmentType]);
   });
@@ -407,8 +418,21 @@ function setupEventListeners() {
     }
   });
 
-  elements.downloadShirtBtn.addEventListener('click', () => downloadCanvas('roblox_shirt.png', canvases.shirt.canvas));
-  elements.downloadPantsBtn.addEventListener('click', () => downloadCanvas('roblox_pants.png', canvases.pants.canvas));
+  elements.downloadShirtBtn.addEventListener('click', () => {
+    if (elements.showTemplateCheckbox.checked) {
+      downloadCanvas('roblox_shirt.png', canvases.shirt.canvas);
+    } else {
+      downloadCanvas('roblox_shirt.png', canvases.shirt.skinOnlyCanvas);
+    }
+  });
+
+  elements.downloadPantsBtn.addEventListener('click', () => {
+    if (elements.showTemplateCheckbox.checked) {
+      downloadCanvas('roblox_pants.png', canvases.pants.canvas);
+    } else {
+      downloadCanvas('roblox_pants.png', canvases.pants.skinOnlyCanvas);
+    }
+  });
 }
 
 function downloadCanvas(filename, canvas) {
