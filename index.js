@@ -76,37 +76,37 @@ const config = {
           label: 'LL',
           drawRegion: { x: 506, y: 355, w: 64, h: 128 },
           skinMap: { x: 32, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_arm_l',
+          mirrorFromIfOld: 'right_arm_l',
         },
         left_arm_b: {
           label: 'LB',
           drawRegion: { x: 308, y: 355, w: 64, h: 128 },
           skinMap: { x: 36, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_arm_b',
+          mirrorFromIfOld: 'right_arm_b',
         },
         left_arm_r: {
           label: 'LR',
           drawRegion: { x: 374, y: 355, w: 64, h: 128 },
           skinMap: { x: 40, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_arm_r',
+          mirrorFromIfOld: 'right_arm_r',
         },
         left_arm_f: {
           label: 'LF',
           drawRegion: { x: 440, y: 355, w: 64, h: 128 },
           skinMap: { x: 44, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_arm_f',
+          mirrorFromIfOld: 'right_arm_f',
         },
         left_arm_u: {
           label: 'LU',
           drawRegion: { x: 308, y: 289, w: 64, h: 64 },
           skinMap: { x: 36, y: 48, w: 4, h: 4 },
-          mirrorFrom: 'right_arm_u',
+          mirrorFromIfOld: 'right_arm_u',
         },
         left_arm_d: {
           label: 'LD',
           drawRegion: { x: 308, y: 485, w: 64, h: 64 },
           skinMap: { x: 40, y: 48, w: 4, h: 4 },
-          mirrorFrom: 'right_arm_d',
+          mirrorFromIfOld: 'right_arm_d',
         },
       },
     },
@@ -147,37 +147,37 @@ const config = {
           label: 'LL',
           drawRegion: { x: 506, y: 355, w: 64, h: 128 },
           skinMap: { x: 16, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_leg_l',
+          mirrorFromIfOld: 'right_leg_l',
         },
         left_leg_b: {
           label: 'LB',
           drawRegion: { x: 308, y: 355, w: 64, h: 128 },
           skinMap: { x: 20, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_leg_b',
+          mirrorFromIfOld: 'right_leg_b',
         },
         left_leg_r: {
           label: 'LR',
           drawRegion: { x: 374, y: 355, w: 64, h: 128 },
           skinMap: { x: 24, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_leg_r',
+          mirrorFromIfOld: 'right_leg_r',
         },
         left_leg_f: {
           label: 'LF',
           drawRegion: { x: 440, y: 355, w: 64, h: 128 },
           skinMap: { x: 28, y: 52, w: 4, h: 12 },
-          mirrorFrom: 'right_leg_f',
+          mirrorFromIfOld: 'right_leg_f',
         },
         left_leg_u: {
           label: 'LU',
           drawRegion: { x: 308, y: 289, w: 64, h: 64 },
           skinMap: { x: 20, y: 48, w: 4, h: 4 },
-          mirrorFrom: 'right_leg_u',
+          mirrorFromIfOld: 'right_leg_u',
         },
         left_leg_d: {
           label: 'LD',
           drawRegion: { x: 308, y: 485, w: 64, h: 64 },
           skinMap: { x: 24, y: 48, w: 4, h: 4 },
-          mirrorFrom: 'right_leg_d',
+          mirrorFromIfOld: 'right_leg_d',
         },
       },
     },
@@ -319,10 +319,10 @@ function processMinecraftSkin(skinImg) {
 }
 
 function drawSkinRegion(ctx, skinImg, region, hasNewFormat, allRegions) {
-  const { drawRegion, skinMap, mirrorFrom } = region;
+  const { drawRegion, skinMap, mirrorFromIfOld } = region;
 
-  if (!hasNewFormat && mirrorFrom) {
-    const mirrorRegion = allRegions[mirrorFrom];
+  if (!hasNewFormat && mirrorFromIfOld) {
+    const mirrorRegion = allRegions[mirrorFromIfOld];
     const mirrorSkinMap = mirrorRegion.skinMap;
 
     const mirroredCanvas = createMirroredImage(
@@ -364,7 +364,7 @@ function createGarmentTemplate(skinImg, garmentType, hasNewFormat, ctx) {
   const regions = garmentConfig.regions;
 
   Object.entries(regions).forEach(([regionName, region]) => {
-    if (!hasNewFormat && !region.mirrorFrom) return;
+    if (!hasNewFormat && !region.mirrorFromIfOld) return;
 
     drawSkinRegion(ctx, skinImg, region, hasNewFormat, regions);
   });
