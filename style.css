@@ -121,3 +121,28 @@ canvas {
 #output-container {
   display: none;
 }
+
+.upload-section.drag-over {
+  background-color: #f0f8ff;
+  border-color: #ff7700;
+}
+
+.username-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.username-section p {
+  color: #666;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+#usernameInput {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+  margin-right: 10px;
+}
