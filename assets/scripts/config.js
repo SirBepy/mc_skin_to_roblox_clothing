@@ -1,4 +1,4 @@
-const config = {
+export const config = {
   templates: {
     width: 585,
     height: 559,
