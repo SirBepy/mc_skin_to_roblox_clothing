@@ -39,6 +39,7 @@ const config = {
           label: 'DOWN',
           drawRegion: { x: 231, y: 204, w: 128, h: 64 },
           skinMap: { x: 28, y: 16, w: 8, h: 4 },
+          flipAxis: 'y',
         },
 
         right_arm_l: {
