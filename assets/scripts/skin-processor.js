@@ -4,8 +4,8 @@ import { createMirroredImage, createFlippedImage } from './utils.js';
 
 export function checkForNewSkinFormat(skinImg) {
   const tempCanvas = document.createElement('canvas');
-  tempCanvas.width = config.minecraft.width;
-  tempCanvas.height = config.minecraft.height;
+  tempCanvas.width = config.skinImageSize.width;
+  tempCanvas.height = config.skinImageSize.height;
   const tempCtx = tempCanvas.getContext('2d');
   tempCtx.drawImage(skinImg, 0, 0);
 

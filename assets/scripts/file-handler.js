@@ -32,7 +32,7 @@ function loadImageFromData(dataUrl) {
   const img = new Image();
 
   img.onload = function () {
-    if (img.width !== config.minecraft.width || img.height !== config.minecraft.height) {
+    if (img.width !== config.skinImageSize.width || img.height !== config.skinImageSize.height) {
       showError("The file doesn't appear to be a valid Minecraft skin.<br>Expected size: 64x64 pixels");
       hideSpinner();
       return;
@@ -126,7 +126,7 @@ async function fetchSkinFromUsername(username) {
     const img = new Image();
 
     img.onload = function () {
-      if (img.width !== config.minecraft.width || img.height !== config.minecraft.height) {
+      if (img.width !== config.skinImageSize.width || img.height !== config.skinImageSize.height) {
         showError("The skin doesn't appear to be valid.<br>Expected size: 64x64 pixels");
         hideSpinner();
         return;

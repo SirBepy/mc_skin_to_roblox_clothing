@@ -3,7 +3,7 @@ export const config = {
     width: 585,
     height: 559,
   },
-  minecraft: {
+  skinImageSize: {
     width: 64,
     height: 64,
   },
