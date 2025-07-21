@@ -158,3 +158,8 @@ canvas {
   width: 200px;
   margin-right: 10px;
 }
+
+#show_roblox_template_wrapper {
+  /* TODO: One day bring this back, maybe in another way, we will see... */
+  display: none;
+}
