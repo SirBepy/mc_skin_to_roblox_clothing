@@ -16,26 +16,28 @@
         <div class="instructions">
             <h3>How to use:</h3>
             <ol>
-                <li>Click "Choose File" to upload your Minecraft skin (.png file)</li>
+                <li>Upload your skin</li>
                 <li>The tool will automatically convert it to Roblox shirt and pants templates</li>
                 <li>Download the templates and upload them to Roblox</li>
             </ol>
-        </div>
+            <p>Bonus: Use <a href="https://ingame.clothing/" target="_blank">ingame.clothing</a> to see what your skin
+                would look like
+                on a roblox character</p>
 
-        <div>
             <input type="checkbox" id="show_roblox_template" name="show_roblox_template">
             <label for="show_roblox_template">Show Roblox Template in Background of Downloaded Image</label><br>
         </div>
 
+        <div class="username-section">
+            <input type="text" id="usernameInput" placeholder="Enter Minecraft username">
+            <button class="btn" id="fetchSkinBtn">Get Skin from Username</button>
+            <p>- OR -</p>
+        </div>
         <div class="upload-section">
             <input type="file" id="fileInput" accept=".png">
             <button class="btn" id="uploadBtn">Upload Minecraft Skin</button>
         </div>
-        <div class="username-section">
-            <p>- OR -</p>
-            <input type="text" id="usernameInput" placeholder="Enter Minecraft username">
-            <button class="btn" id="fetchSkinBtn">Get Skin from Username</button>
-        </div>
+
 
         <div class="spinner" id="spinner"></div>
         <div class="error" id="error-message"></div>
@@ -44,26 +46,26 @@
             <h3>Original Minecraft Skin:</h3>
             <img id="original-preview">
         </div>
+    </div>
 
-        <div id="output-container">
-            <h2>Converted Templates:</h2>
-
-            <div class="output-section">
-                <div class="output-item">
-                    <h3>Roblox Shirt Template</h3>
-                    <canvas id="shirtCanvas"></canvas>
-                    <div class="download-row">
-                        <button class="btn" id="downloadShirtBtn">Download Shirt Template</button>
-                    </div>
+    <div class="container" id="output-container">
+        <div class="output-section">
+            <div class="output-item">
+                <div>
+                    <h3>Download Shirt</h3>
+                    <button class="btn" id="downloadShirtBtn">Without Template</button>
+                    <button class="btn secondary" id="downloadShirtBtn2">With Template</button>
                 </div>
+                <canvas id="shirtCanvas"></canvas>
+            </div>
 
-                <div class="output-item">
-                    <h3>Roblox Pants Template</h3>
-                    <canvas id="pantsCanvas"></canvas>
-                    <div class="download-row">
-                        <button class="btn" id="downloadPantsBtn">Download Pants Template</button>
-                    </div>
+            <div class="output-item">
+                <div>
+                    <h3>Download Pants</h3>
+                    <button class="btn" id="downloadPantsBtn">Without Template</button>
+                    <button class="btn secondary" id="downloadPantsBtn2">With Template</button>
                 </div>
+                <canvas id="pantsCanvas"></canvas>
             </div>
         </div>
     </div>

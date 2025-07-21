@@ -5,6 +5,9 @@ body {
   padding: 20px;
   background-color: #f0f0f0;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 h1 {
@@ -24,7 +27,9 @@ h1 {
   padding: 30px;
   border: 2px dashed #ccc;
   border-radius: 5px;
-  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #fileInput {
@@ -42,6 +47,13 @@ h1 {
   transition: background-color 0.3s;
 }
 
+.btn.secondary {
+  background-color: transparent;
+  border: 1px solid #ff7700;
+  color: #ff7700;
+  transition: background-color 0.3s;
+}
+
 .btn:hover {
   background-color: #e56b00;
 }
@@ -54,8 +66,15 @@ h1 {
 
 .output-item {
   display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+}
+
+.output-item div {
+  display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 1em;
 }
 
 canvas {
@@ -63,12 +82,6 @@ canvas {
   margin: 10px 0;
   max-width: 100%;
   height: auto;
-}
-
-.download-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
 }
 
 #preview-section {
@@ -129,7 +142,6 @@ canvas {
 
 .username-section {
   text-align: center;
-  margin: 20px 0;
 }
 
 .username-section p {
