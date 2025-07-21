@@ -2,22 +2,25 @@ import { elements, downloadCanvas } from './ui.js';
 import { canvases, initCanvases, loadTemplates } from './canvas.js';
 import { setupFileUpload, setupDragAndDrop, setupUsernameFeature } from './file-handler.js';
 
-function setupDownloadButtons() {
-  elements.downloadShirtBtn.addEventListener('click', () => {
-    if (elements.showTemplateCheckbox.checked) {
-      downloadCanvas('roblox_shirt.png', canvases.shirt.canvas);
-    } else {
-      downloadCanvas('roblox_shirt.png', canvases.shirt.skinOnlyCanvas);
-    }
-  });
+function onDownload(clothingType) {
+  if (!canvases[clothingType])
+    return console.warn('Could not find canvas with name', clothingType, '\nOnly found:', canvases);
+  let username = 'roblox';
 
-  elements.downloadPantsBtn.addEventListener('click', () => {
-    if (elements.showTemplateCheckbox.checked) {
-      downloadCanvas('roblox_pants.png', canvases.pants.canvas);
-    } else {
-      downloadCanvas('roblox_pants.png', canvases.pants.skinOnlyCanvas);
-    }
-  });
+  if (elements.usernameInput && elements.usernameInput.value) {
+    username = elements.usernameInput.value;
+  }
+
+  if (elements.showTemplateCheckbox.checked) {
+    downloadCanvas(`${username}_ro_${clothingType}.png`, canvases[clothingType].canvas);
+  } else {
+    downloadCanvas(`${username}_ro_${clothingType}.png`, canvases[clothingType].skinOnlyCanvas);
+  }
+}
+
+function setupDownloadButtons() {
+  elements.downloadShirtBtn.addEventListener('click', () => onDownload('shirt'));
+  elements.downloadPantsBtn.addEventListener('click', () => onDownload('pants'));
 }
 
 function init() {
