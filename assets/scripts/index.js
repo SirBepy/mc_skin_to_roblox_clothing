@@ -1,4 +1,3 @@
-import { config } from './config.js';
 import { elements, downloadCanvas } from './ui.js';
 import { canvases, initCanvases, loadTemplates } from './canvas.js';
 import { setupFileUpload, setupDragAndDrop, setupUsernameFeature } from './file-handler.js';
