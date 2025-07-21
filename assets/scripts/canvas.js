@@ -1,4 +1,5 @@
 import { config } from './config.js';
+import { elements } from './ui.js';
 
 export const canvases = {
   shirt: {
@@ -18,8 +19,8 @@ export const canvases = {
 };
 
 export function initCanvases() {
-  canvases.shirt.canvas = document.getElementById('shirtCanvas');
-  canvases.pants.canvas = document.getElementById('pantsCanvas');
+  canvases.shirt.canvas = elements.shirtCanvas;
+  canvases.pants.canvas = elements.pantsCanvas;
 
   Object.values(canvases).forEach((canvasObj) => {
     canvasObj.canvas.width = config.templates.width;

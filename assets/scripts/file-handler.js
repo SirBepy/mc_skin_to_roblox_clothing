@@ -107,14 +107,10 @@ function handleDrop(e) {
 }
 
 export function setupUsernameFeature() {
-  const usernameInput = document.getElementById('usernameInput');
-  const fetchSkinBtn = document.getElementById('fetchSkinBtn');
-
-  fetchSkinBtn.addEventListener('click', () => fetchSkinFromUsername(usernameInput.value));
-
-  usernameInput.addEventListener('keypress', (e) => {
+  elements.fetchSkinBtn.addEventListener('click', () => fetchSkinFromUsername(elements.usernameInput.value));
+  elements.usernameInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      fetchSkinFromUsername(usernameInput.value);
+      fetchSkinFromUsername(elements.usernameInput.value);
     }
   });
 }

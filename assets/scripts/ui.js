@@ -1,4 +1,6 @@
 export const elements = {
+  fetchSkinBtn: document.getElementById('fetchSkinBtn'),
+  usernameInput: document.getElementById('usernameInput'),
   fileInput: document.getElementById('fileInput'),
   uploadBtn: document.getElementById('uploadBtn'),
   shirtCanvas: document.getElementById('shirtCanvas'),
