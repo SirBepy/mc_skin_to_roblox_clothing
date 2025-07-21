@@ -2,6 +2,18 @@ import { config } from './config.js';
 import { elements, showSpinner, hideSpinner, showError } from './ui.js';
 import { processMinecraftSkin } from './skin-processor.js';
 
+function getConfigForSkin(width, height) {
+  const matchingFormat = config.skinFormats.find(
+    (format) => format.skinImageSize.width === width && format.skinImageSize.height === height
+  );
+
+  if (!matchingFormat) {
+    throw new Error(`No configuration found for skin size ${width}x${height}`);
+  }
+
+  return matchingFormat;
+}
+
 export function setupFileUpload() {
   elements.uploadBtn.addEventListener('click', () => {
     elements.fileInput.click();
@@ -32,19 +44,20 @@ function loadImageFromData(dataUrl) {
   const img = new Image();
 
   img.onload = function () {
-    if (img.width !== config.skinImageSize.width || img.height !== config.skinImageSize.height) {
-      showError("The file doesn't appear to be a valid Minecraft skin.<br>Expected size: 64x64 pixels");
+    try {
+      const skinConfig = getConfigForSkin(img.width, img.height);
+
+      elements.originalPreview.src = dataUrl;
+      elements.previewSection.style.display = 'block';
+
+      processMinecraftSkin(img, skinConfig);
+
       hideSpinner();
-      return;
+      elements.outputContainer.style.display = 'block';
+    } catch (error) {
+      showError(error.message);
+      hideSpinner();
     }
-
-    elements.originalPreview.src = dataUrl;
-    elements.previewSection.style.display = 'block';
-
-    processMinecraftSkin(img);
-
-    hideSpinner();
-    elements.outputContainer.style.display = 'block';
   };
 
   img.onerror = function () {
@@ -126,19 +139,20 @@ async function fetchSkinFromUsername(username) {
     const img = new Image();
 
     img.onload = function () {
-      if (img.width !== config.skinImageSize.width || img.height !== config.skinImageSize.height) {
-        showError("The skin doesn't appear to be valid.<br>Expected size: 64x64 pixels");
+      try {
+        const skinConfig = getConfigForSkin(img.width, img.height);
+
+        elements.originalPreview.src = img.src;
+        elements.previewSection.style.display = 'block';
+
+        processMinecraftSkin(img, skinConfig);
+
         hideSpinner();
-        return;
+        elements.outputContainer.style.display = 'block';
+      } catch (error) {
+        showError(error.message);
+        hideSpinner();
       }
-
-      elements.originalPreview.src = img.src;
-      elements.previewSection.style.display = 'block';
-
-      processMinecraftSkin(img);
-
-      hideSpinner();
-      elements.outputContainer.style.display = 'block';
     };
 
     img.onerror = function () {

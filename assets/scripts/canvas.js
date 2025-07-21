@@ -43,15 +43,15 @@ export function loadTemplates() {
   });
 }
 
-export function drawTemplate(canvasObj) {
+export function drawTemplate(canvasObj, skinConfig = null) {
   const ctx = canvasObj.ctx;
   const garmentType = canvasObj === canvases.shirt ? 'shirt' : 'pants';
-  const garmentConfig = config.garments[garmentType];
+  const garmentConfig = skinConfig ? skinConfig.garments[garmentType] : null;
 
   ctx.clearRect(0, 0, canvasObj.canvas.width, canvasObj.canvas.height);
   ctx.drawImage(canvasObj.template, 0, 0);
 
-  addLabels(ctx, garmentConfig);
+  if (garmentConfig) addLabels(ctx, garmentConfig);
 
   ctx.strokeStyle = '#ffffff';
   ctx.setLineDash([5, 5]);
